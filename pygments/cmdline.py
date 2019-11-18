@@ -571,3 +571,6 @@ def main(args=sys.argv):
         print('*** If this is a bug you want to report, please rerun with -v.',
               file=sys.stderr)
         return 1
+
+if __name__ == "__main__":
+    main()
