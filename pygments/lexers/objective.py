@@ -45,6 +45,11 @@ def objective(baselexer):
         Implements Objective-C syntax on top of an existing C family lexer.
         """
 
+        # From c_cpp.py
+        # The trailing ?, rather than *, avoids a geometric performance drop here.
+        #: only one /* */ style comment
+        _ws1 = r'\s*(?:/[*].*?[*]/\s*)?'
+
         tokens = {
             'statements': [
                 (r'@"', String, 'string'),
@@ -162,6 +167,11 @@ def objective(baselexer):
             'literal_dictionary': [
                 (r'\}', Literal, '#pop'),
                 include('statement'),
+            ],
+            'macro': [
+                (r'(import)(' + _ws1 + r')([^\n]+)',
+                 bygroups(Comment.Preproc, Text, Comment.PreprocFile)),
+                inherit,
             ],
         }
 
