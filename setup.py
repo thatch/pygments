@@ -22,19 +22,20 @@ are:
 """
 
 try:
-    from setuptools import setup, find_packages
+    from setuptools import setup
     have_setuptools = True
 except ImportError:
     from distutils.core import setup
-    def find_packages(*args, **kwargs):
-        return [
-            'pygments',
-            'pygments.lexers',
-            'pygments.formatters',
-            'pygments.styles',
-            'pygments.filters',
-        ]
     have_setuptools = False
+
+def find_packages(*args, **kwargs):
+    return [
+        'pygments',
+        'pygments.lexers',
+        'pygments.formatters',
+        'pygments.styles',
+        'pygments.filters',
+    ]
 
 if have_setuptools:
     add_keywords = dict(
